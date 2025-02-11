@@ -347,6 +347,43 @@
             object-fit: contain;
             filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
         }
+
+        /* Add button styles */
+        .button-container {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            pointer-events: auto;
+        }
+
+        .valentine-button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .yes-button:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .no-button {
+            position: relative;
+        }
+
+        .no-button:hover {
+            opacity: 0;
+            transform: translate(100px, 100px);
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -370,6 +407,11 @@
             <p>Твоята усмивка озарява моя свят.</p>
             <p>Ще бъдеш ли моя валентинка?</p>
             <p class="signature">С цялата ми любов ❤️</p>
+        </div>
+
+        <div class="button-container">
+            <button class="valentine-button yes-button" onclick="acceptValentine()">Да ❤️</button>
+            <button class="valentine-button no-button">Не</button>
         </div>
     </div>
 
@@ -620,6 +662,21 @@
             animation.onfinish = () => confetti.remove();
         }
     }
+
+    function acceptValentine() {
+        createConfetti();
+        document.querySelector('.yes-button').textContent = 'Обичам те! ❤️';
+        document.querySelector('.no-button').style.display = 'none';
+    }
+
+    // Make the No button run away
+    document.querySelector('.no-button').addEventListener('mouseover', function(e) {
+        const x = Math.random() * (window.innerWidth - this.offsetWidth);
+        const y = Math.random() * (window.innerHeight - this.offsetHeight);
+        this.style.position = 'fixed';
+        this.style.left = `${x}px`;
+        this.style.top = `${y}px`;
+    });
     </script>
 </body>
 </html> 
